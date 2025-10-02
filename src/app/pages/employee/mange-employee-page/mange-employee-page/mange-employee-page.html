@@ -66,7 +66,9 @@
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item (click)="update(element.id)" class="btn bg-accent"><i
                                     class="fa-solid fa-pen-to-square"></i> تحديث</button>
-                            <button mat-menu-item class="btn bg-accent"><i class="fa-solid fa-trash"></i> توقيف</button>
+                                    <!-- @if (!deactive()) { -->
+                                        <button mat-menu-item class="btn bg-accent"><i class="fa-solid fa-trash"></i> توقيف</button>
+                                    <!-- } -->
                         </mat-menu>
                     </td>
                 </ng-container>

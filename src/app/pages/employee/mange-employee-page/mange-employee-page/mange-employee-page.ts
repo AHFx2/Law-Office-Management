@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { PageHeaderComponent } from '../../../../../shared/components/page header/page-header-component/page-header-component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEmployeeComponent } from '../../dialogs/add-employee-component';
@@ -28,6 +28,8 @@ import { EmployeeStatusPipe } from '../../pipes/IsActive/IsActive';
 import { EmployeeStatusStyleDirective } from '../../directives/employee-status/employee-status';
 import { EmployeeService } from '../../services/employee-service';
 import { CountryNamePipe } from '../../../../../shared/pipes/country-name-pipe';
+import { SessionManagement } from '../../../../../core/services/session/session-management';
+import { enRole } from '../../../../../shared/enums/roles';
 
 @Component({
   selector: 'app-mange-employee-page',
@@ -60,6 +62,8 @@ export class MangeEmployeePage implements OnInit {
 
   element: IEmployeeRow[] = [];
   employeesDataSource = new MatTableDataSource<IEmployeeRow>(this.element);
+  session = inject(SessionManagement)
+  deactive = signal((this.session.getSession() ? this.session.getSession()?.role == enRole.GeneralManager : false))
 
   @ViewChild(MatPaginator) paginator: MatPaginator = {} as MatPaginator;
   @ViewChild(MatSort) sort: MatSort = {} as MatSort;
