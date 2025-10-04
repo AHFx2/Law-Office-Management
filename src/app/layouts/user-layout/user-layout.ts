@@ -21,7 +21,6 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-user-layout',
   imports: [
-    NgxSpinnerComponent,
     RouterModule,
     MatSidenavContainer,
     MatSidenav,
