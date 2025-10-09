@@ -86,8 +86,8 @@ export class CasesListPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // Connect paginator and sort to data source
-    this.casesDataSource.paginator = this.paginator;
-    this.casesDataSource.sort = this.sort;
+    // this.casesDataSource.paginator = this.paginator;
+    // this.casesDataSource.sort = this.sort;
   }
 
   private initializeComponent(): void {
@@ -120,20 +120,14 @@ export class CasesListPage implements OnInit, AfterViewInit {
   updateTableData(courtId: string, year: string): void {
     this.caseService.getCasesList(courtId, year).subscribe({
       next: (data: IListDTO<ICaseRow>) => {
-        console.log('the case list', data);
         this.casesList = data;
 
-        // Update the data source with new data
-        if (data?.items && Array.isArray(data.items)) {
-          this.casesDataSource.data = data.items;
-        } else {
-          this.casesDataSource.data = [];
-        }
-
+        this.casesDataSource.data = this.casesList.items;
         // Reset to first page when data changes
-        if (this.paginator) {
-          this.paginator.firstPage();
-        }
+        setTimeout(() => {  
+          this.casesDataSource.paginator = this.paginator;
+          this.casesDataSource.sort = this.sort;
+      })
       },
       error: (error) => {
         console.error('Error loading cases:', error);
@@ -156,12 +150,10 @@ export class CasesListPage implements OnInit, AfterViewInit {
   // Handle pagination changes
   handlePage(event: PageEvent): void {
     this.currentPage = event.pageIndex;
-    console.log('Page changed:', event);
   }
 
   // Handle sort changes
   handleSort(sortState: Sort): void {
-    console.log('Sort changed:', sortState);
   }
 
   // Utility methods
@@ -178,11 +170,7 @@ export class CasesListPage implements OnInit, AfterViewInit {
   }
 
   // Export functionality (optional)
-  exportData(): void {
-    const dataToExport = this.casesDataSource.filteredData;
-    console.log('Exporting data:', dataToExport);
-    // Implement your export logic here
-  }
+
 
   // Refresh data
   refreshData(): void {

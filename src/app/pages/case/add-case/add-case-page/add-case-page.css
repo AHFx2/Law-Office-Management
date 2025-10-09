@@ -51,3 +51,24 @@ h3 {
     background-color: var(--secondary);
     color: var(--secondary-foreground);
 }
+
+sup {
+    font-size: 0.8rem;
+    border-radius: 50%;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+sup:hover {
+    background-color: rgba(150, 153, 157, 0.253);
+}
+
+.mat-tooltip {
+    width: 50rem !important;
+    background-color: red;
+    
+}

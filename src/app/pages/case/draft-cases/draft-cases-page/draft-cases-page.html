@@ -58,13 +58,13 @@
 
                 <!-- Employee Name Column -->
                 <ng-container [matColumnDef]="displayedColumns[6]">
-                    <th mat-header-cell *matHeaderCellDef [mat-sort-header]="displayedColumns[6]">اسم الموظف</th>
+                    <th mat-header-cell *matHeaderCellDef [mat-sort-header]="displayedColumns[6]">إسم المنشئ</th>
                     <td mat-cell *matCellDef="let element">{{element.employeeName}}</td>
                 </ng-container>
 
                 <!-- Case Subject Column -->
                 <ng-container [matColumnDef]="displayedColumns[7]">
-                    <th mat-header-cell *matHeaderCellDef [mat-sort-header]="displayedColumns[7]">موضوع القضية</th>
+                    <th mat-header-cell *matHeaderCellDef>موضوع القضية</th>
                     <td mat-cell *matCellDef="let element">{{element.caseSubject}}</td>
                 </ng-container>
 

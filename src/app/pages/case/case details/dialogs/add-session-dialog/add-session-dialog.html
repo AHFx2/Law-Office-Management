@@ -37,11 +37,13 @@
                 class="form-control"></textarea>
             <div class="errors" *ngIf="sessionForm.controls.tasks.touched" animate.enter="error-animation">
                 <p *ngIf="sessionForm.controls.tasks?.errors?.['required']">هذا الحقل مطلوب</p>
+                <p *ngIf="sessionForm.controls.tasks?.errors?.['minlength']">ادخل اكثر من 10 حروف</p>
+
             </div>
         </div>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions class="btn-group d-flex justfiy-content-center gap-3" role="group">
-    <input type="submit" form="sessionForm" value="حفظ الجلسة" class="btn bg-main w-fill">
-    <button class="btn bg-accent " type="button" mat-dialog-close>إلغاء</button>
+<mat-dialog-actions class="row d-flex" role="group">
+    <input type="submit" form="sessionForm" value="حفظ الجلسة" class="btn bg-main col-5">
+    <button class="btn bg-accent col-5" type="button" mat-dialog-close>إلغاء</button>
 </mat-dialog-actions>

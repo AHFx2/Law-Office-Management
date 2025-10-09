@@ -28,66 +28,91 @@ import { MatDialog } from '@angular/material/dialog';
     NgClass,
     MatToolbarModule,
     PageHeaderComponent,
-    MatMenuModule
+    MatMenuModule,
   ],
   templateUrl: './user-layout.html',
   styleUrl: './user-layout.css',
 })
 export class UserLayout {
-hasRole(navElements: INavBtn) {
-  return navElements.roles.some(role => this.user.role == role)
-}
+  hasRole(navElements: INavBtn) {
+    return navElements.roles.some((role) => this.user.role == role);
+  }
 
-    private dialogof: MatDialog = inject(MatDialog);
+  private dialogof: MatDialog = inject(MatDialog);
   navElements: INavBtn[] = [
     {
       name: 'إضافة قضية جديدة',
       icon: 'fa-solid fa-plus',
       title: 'إضافة قضية',
       route: 'add-case',
-      roles: [enRole.GeneralManager, enRole.ExecutiveManager, enRole.Lawyer, enRole.Consultant]
+      roles: [
+        enRole.GeneralManager,
+        enRole.ExecutiveManager,
+        enRole.Lawyer,
+        enRole.Consultant,
+      ],
     },
     {
       name: 'القضايا المستلمة',
       icon: 'fa-solid fa-sheet-plastic',
       title: 'القضايا المستلمة',
       route: 'cases-list',
-      roles: [enRole.GeneralManager, enRole.ExecutiveManager, enRole.Lawyer, enRole.Consultant]
+      roles: [
+        enRole.GeneralManager,
+        enRole.ExecutiveManager,
+        enRole.Lawyer,
+        enRole.Consultant,
+      ],
     },
     {
       name: 'صكوك الاحكام',
       icon: 'fa-solid fa-gavel',
       title: 'صكوك الاحكام',
       route: 'judgments-list',
-      roles: [enRole.GeneralManager, enRole.ExecutiveManager, enRole.Lawyer, enRole.Consultant]
+      roles: [
+        enRole.GeneralManager,
+        enRole.ExecutiveManager,
+        enRole.Lawyer,
+        enRole.Consultant,
+      ],
     },
     {
       name: 'القضايا المسودة',
       icon: 'fa-brands fa-firstdraft',
       title: 'القضايا المسودة',
       route: 'draft-cases',
-      roles: [enRole.GeneralManager, enRole.ExecutiveManager, enRole.Lawyer, enRole.Consultant]
+      roles: [
+        enRole.GeneralManager,
+        enRole.ExecutiveManager,
+        enRole.Lawyer,
+        enRole.Consultant,
+      ],
     },
     {
       name: 'النماذج',
       icon: 'fa-solid fa-box',
       title: 'النماذج',
       route: 'templates',
-      roles: [enRole.GeneralManager, enRole.ExecutiveManager, enRole.Lawyer, enRole.Consultant]
+      roles: [
+        enRole.GeneralManager,
+        enRole.ExecutiveManager,
+        enRole.Lawyer,
+        enRole.Consultant,
+      ],
     },
     {
       name: 'إدارة الموظفين',
       icon: 'fa-solid fa-users',
       title: 'إدارة الموظفين',
       route: 'employees',
-      roles: [enRole.GeneralManager, enRole.ExecutiveManager]
+      roles: [enRole.GeneralManager, enRole.ExecutiveManager],
     },
   ];
-  user:loggedUser = inject(SessionManagement).getSession()!;
-  activeRout:INavBtn = this.navElements[5]
+  user: loggedUser = inject(SessionManagement).getSession()!;
+  activeRout: INavBtn = this.navElements[0];
   IsnavigatorsTextVisable = computed(() => !this.collapsed());
   collapsed = signal(false);
-  sideNavWidth = computed(() => (this.collapsed() ? '80px' : '255px'));
+  sideNavWidth = computed(() => (this.collapsed() ? '60px' : '255px'));
   constructor(private authMangment: AuthManagement, private route: Router) {}
   logout() {
     this.authMangment.logout().subscribe({
@@ -98,8 +123,8 @@ hasRole(navElements: INavBtn) {
     });
   }
 
-  routeChanged(isActive:boolean, element:INavBtn) {
-    if (isActive) this.activeRout = element;
+  routeChanged(element: INavBtn) {
+    this.activeRout = element;
   }
 
   changePassword() {
@@ -108,8 +133,6 @@ hasRole(navElements: INavBtn) {
       minWidth: '400px',
     });
   }
-
-
 }
 
 export interface INavBtn {
@@ -117,5 +140,5 @@ export interface INavBtn {
   icon: string;
   title: string;
   route: string;
-  roles:enRole[]
+  roles: enRole[];
 }

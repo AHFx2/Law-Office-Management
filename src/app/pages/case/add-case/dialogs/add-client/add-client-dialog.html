@@ -4,7 +4,7 @@
         <div formGroupName="person" class="d-flex row g-3">
             <div class="col-md-6">
                 <label class="form-label">الاسم الرباعي </label>
-                <input type="text" placeholder="أدخل الاسم الرباعي" formControlName="name"
+                <input type="text" formControlName="name"
                     [class.border-error]="(clientForm.controls.person.controls.name.touched && clientForm.controls.person.controls.name.invalid)"
                     class="form-control">
                 @if (clientForm.controls.person.controls.name?.touched) {
@@ -92,7 +92,7 @@
 
     </form>
 </mat-dialog-content>
-<mat-dialog-actions class="btn-group row g-3" role="group">
-    <button class="btn bg-main col-sm-12" form="clientForm" type="submit">حفظ العميل</button>
-    <button class="btn bg-accent col-sm-12" type="button" mat-dialog-close>إلغاء</button>
+<mat-dialog-actions class="row d-flex">
+    <button class="btn bg-main col-5" form="clientForm" type="submit">حفظ العميل</button>
+    <button class="btn bg-accent col-5" type="button" mat-dialog-close>إلغاء</button>
 </mat-dialog-actions>

@@ -75,8 +75,7 @@ export class DraftCasesPage implements OnInit, AfterViewInit {
     private caseService: CaseService,
     private toasterService: ToasterService
   ) {
-    this.draftCasesDataSource.data = [
-    ];
+    this.draftCasesDataSource.data = [];
     this.draftCases.items = this.draftCasesDataSource.data;
   }
 
@@ -94,6 +93,7 @@ export class DraftCasesPage implements OnInit, AfterViewInit {
     this.caseService.getDraftCasesList().subscribe((data) => {
       this.draftCases = data;
       this.draftCasesDataSource.data = this.draftCases.items;
+      setTimeout(() => {this.draftCasesDataSource.sort = this.sort;});
     });
   }
 
@@ -113,10 +113,7 @@ export class DraftCasesPage implements OnInit, AfterViewInit {
     this.loadDraftCases(event.pageIndex, event.pageSize);
   }
 
-  // Handle sort changes
-  handleSort(sortState: Sort): void {
-    console.log('Sort changed:', sortState);
-  }
+  
 
   // Action methods for buttons
   approveDraftCase(draftCase: IDraftCaseRow): void {
@@ -163,7 +160,6 @@ export class DraftCasesPage implements OnInit, AfterViewInit {
   // Export functionality (optional)
   exportData(): void {
     const dataToExport = this.draftCasesDataSource.filteredData;
-    console.log('Exporting draft cases data:', dataToExport);
     // Implement your export logic here
   }
 
@@ -196,12 +192,6 @@ export class DraftCasesPage implements OnInit, AfterViewInit {
     };
 
     return statusMap[status] || 'badge bg-secondary';
-  }
-
-  // Bulk actions (optional)
-  approveSelectedCases(): void {
-    // Implement bulk approval logic
-    console.log('Bulk approve selected cases');
   }
 
 

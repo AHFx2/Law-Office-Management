@@ -54,8 +54,7 @@ export class AddEmployeeComponent {
   usedPhone!: string;
   usedEmail!: string;
   session = inject(SessionManagement)
-  mangerUpdate = signal((this.session.getSession() ? this.session.getSession()?.role == enRole.GeneralManager : false) && this.mode == enDialogMode.update)
-
+  mangerUpdate = signal(false);
   constructor(
     private employeeService: EmployeeService,
     private formsBuilder: clsFormsBuilder,
@@ -68,11 +67,11 @@ export class AddEmployeeComponent {
     this.employeeId = this.data.employeeId;
     this.initialize();
   }
-
+  
   IsPhoneDuplicated = signal(false);
   IsNatDuplicated = signal(false);
   IsEmailDuplicated = signal(false);
-
+  
   submit() {
     this.employeeForm.markAllAsTouched();
     if (!this.employeeForm.invalid) {
@@ -118,7 +117,6 @@ export class AddEmployeeComponent {
 
         case enDialogMode.update:
           {
-            debugger
             this.employeeService
               .update(this.employeeForm, this.employeeId, true)
               .subscribe({
@@ -152,7 +150,6 @@ export class AddEmployeeComponent {
           this.title = 'تعديل بيانات الموظف';
           this.employeeService.getById(this.employeeId).subscribe({
             next: (data) => {
-              console.log('employee details', data);
               this.employeeForm.controls.email.setValue(data.email);
               this.employeeForm.controls.role.setValue(data.role);
               this.employeeForm.controls.person.controls.name.setValue(
@@ -173,6 +170,8 @@ export class AddEmployeeComponent {
               this.employeeForm.controls.person.controls.phone.setValue(
                 data.phone
               );
+              this.mangerUpdate = signal(this.session.getSession() ? this.session.getSession()?.role == enRole.GeneralManager && this.mode == enDialogMode.update && this.employeeForm.value.person?.natId == this.session.getSession()?.username: false)
+
             },
             error: (error) => {
               console.log('Error details:', error);

@@ -39,7 +39,6 @@ export class AuthManagement {
       .pipe(
         map((responses) => {
           if (responses) {
-            console.log('the login response');
             const myLoggedUser: loggedUser = {
               username: responses.username,
               accessTokenExpirationDate: responses.accessTokenExpiration,
@@ -61,7 +60,6 @@ export class AuthManagement {
     frmChangePassword: FormGroup<frmChangePassword>
   ): Observable<void> {
     const body = this.adapter.frmChangePasswordAdapter(frmChangePassword);
-    console.log('the change password body', body);
     return this.http
       .patch<any>(`${this.baseURL}/auth/change-password`, body, {
         withCredentials: true,
@@ -97,7 +95,6 @@ export class AuthManagement {
       )
       .pipe(
         tap((response) => {
-          console.log('refresh token is working');
           this.sessionService.updateRefreshToken({
             accessTokenExpirationDate: response.accessTokenExpiration,
             refreshTokenExpirationDate: response.refreshTokenExpiration,
