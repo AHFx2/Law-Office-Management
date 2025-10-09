@@ -79,7 +79,6 @@ export class FileValidator {
       } else if (value instanceof File) {
         file = value;
       } else {
-        console.log('not a file');
         return null;
       }
 
@@ -193,9 +192,6 @@ export class FileValidator {
 
     // File size validation
     if (config.maxSize && file.size > config.maxSize) {
-      console.log('the file size: ', file.size);
-      console.log('the config size: ', config.maxSize);
-
       errors[`maxSize`] = {
         file,
         fileName: file.name,

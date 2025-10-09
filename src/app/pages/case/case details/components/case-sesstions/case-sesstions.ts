@@ -23,7 +23,14 @@ import { MatMenuModule } from '@angular/material/menu';
       useValue: ClsTableUtil.getArabicPaginatorIntl(),
     },
   ],
-  imports: [MatTableModule, MatPaginator, MatSortModule, EmptyTable, DatePipe, MatMenuModule],
+  imports: [
+    MatTableModule,
+    MatPaginator,
+    MatSortModule,
+    EmptyTable,
+    DatePipe,
+    MatMenuModule,
+  ],
   templateUrl: './case-sesstions.html',
   styleUrl: './case-sesstions.css',
 })
@@ -77,30 +84,35 @@ export class CaseSessions implements AfterViewInit, OnInit {
     this.sessionService.getSessionsByCaseId(this.caseId).subscribe((data) => {
       this.sessions = data;
       this.sessionsDataSource.data = this.sessions.items;
+      setTimeout(() => {this.sessionsDataSource.sort = this.sort});
     });
   }
 
   openAddSession(): void {
-    this.dialogof.open(AddSessionDialog, {
-      height: '325x',
-      minWidth: '600px',
-      data: { caseId: this.caseId, mode: enDialogMode.add },
-    }).afterClosed().subscribe(() => {
-      this.loadSessions();
-    });
+    this.dialogof
+      .open(AddSessionDialog, {
+        minWidth: '600px',
+        data: { caseId: this.caseId, mode: enDialogMode.add },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.loadSessions();
+      });
   }
 
   openUpdateSession(sessionId: string): void {
-    this.dialogof.open(AddSessionDialog, {
-      height: '325x',
-      minWidth: '600px',
-      data: {
-        caseId: this.caseId,
-        sessionId: sessionId,
-        mode: enDialogMode.update,
-      },
-    }).afterClosed().subscribe(() => {
-      this.loadSessions();
-    });;
+    this.dialogof
+      .open(AddSessionDialog, {
+        minWidth: '600px',
+        data: {
+          caseId: this.caseId,
+          sessionId: sessionId,
+          mode: enDialogMode.update,
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.loadSessions();
+      });
   }
 }

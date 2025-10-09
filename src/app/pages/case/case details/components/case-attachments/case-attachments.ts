@@ -90,6 +90,7 @@ export class CaseAttachments implements OnInit, AfterViewInit {
       .subscribe((data) => {
         this.attachments = data;
         this.attachmentsDataSource.data = this.attachments.items;
+        setTimeout(() => {this.attachmentsDataSource.sort = this.sort});
       });
   }
 
@@ -109,10 +110,6 @@ export class CaseAttachments implements OnInit, AfterViewInit {
     this.currentPage = event.pageIndex;
   }
 
-  // Handle sort changes
-  handleSort(sortState: Sort): void {
-    console.log('Sort changed:', sortState);
-  }
 
   // Action methods
   downloadAttachment(attachment: IAttachmentRow): void {
@@ -139,7 +136,6 @@ export class CaseAttachments implements OnInit, AfterViewInit {
 
   openAddAttachment(): void {
     const dialogRef = this.dialogof.open(AddAttachmentDialog, {
-      height: '350px',
       width: '900px',
       disableClose: true,
       data: {

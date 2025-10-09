@@ -55,7 +55,6 @@ export class AddAttachmentDialog {
   }
 
   onFileChange(event: Event) {
-    console.log('enetered the on file change evenet in the attachment');
     const input = event.target as HTMLInputElement;
     if (input.files?.length) {
       const file = input.files[0];

@@ -99,6 +99,7 @@ export class AddSessionDialog {
     this.sessionForm = this.clsFormBuilder.createAddSessionForm();
     this.employeeService.getEmployeeNames().subscribe((data) => {
       this.employees = data;
+      this.sessionForm.controls.layerId.setValue(this.employees[0].id)
     });
     switch (this.mode) {
       case enDialogMode.add:
@@ -117,7 +118,6 @@ export class AddSessionDialog {
                 this.sessionForm.controls.date.setValue(String(data.scheduledAt));
                 this.sessionForm.controls.layerId.setValue(data.assignedEmployeeId);
                 this.sessionForm.controls.tasks.setValue(data.assignedTasks);
-                console.log('the form after updating', this.sessionForm.value);
               },
               error: (error) => {
                 console.log('Error details during g:', error);

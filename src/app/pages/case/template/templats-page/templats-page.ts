@@ -29,7 +29,6 @@ export class TemplatesPage implements OnInit {
   ) {}
   
   download(tem: ITemplateBox) {
-    console.log('template downlading', tem);
         this.templateService
       .download(tem.id, tem.file.filePath)
       .subscribe((blob) => {
@@ -44,7 +43,6 @@ export class TemplatesPage implements OnInit {
   addTemplate() {
     this.dilogRef
       .open(AddTemplateDialog, {
-        height: '300px',
         minWidth: '400px',
       })
       .afterClosed()

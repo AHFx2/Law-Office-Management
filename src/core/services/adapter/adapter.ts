@@ -113,7 +113,7 @@ export class Adapter {
           birthDate: model.value.person?.birthDate,
           phone: {
             number: model.value.person?.phone,
-            code: '+966',
+            code: '966',
           },
           address: model.value.person?.address,
           countryCode: model.value.person?.countryCode,
@@ -231,7 +231,7 @@ export class Adapter {
           birthDate: clientGroup?.person?.birthDate,
           phone: {
             number: clientGroup?.person?.phone,
-            code: '+966',
+            code: '966',
           },
           address: clientGroup?.person?.address,
           countryCode: clientGroup?.person?.countryCode,
@@ -260,7 +260,8 @@ export class Adapter {
       clientRequestDetails: formValue.case?.clientRequests,
       clients: allClients,
     };
-
+    
+    console.log(body);
     return body;
   }
   toAddContractFormAPI(contractFrm: FormGroup<frmAddContract>): FormData {
@@ -330,9 +331,9 @@ export class Adapter {
   getSessionsByCaseIdAdapter(row: any): ISessionsRow {
     return {
       courtSessionId: row.courtSessionId,
-      createdDate: new Date(row.createdDate),
+      createdDate: new Date(row.createdAt),
       assignedEmployeeName: String(row.assignedEmployeeName),
-      createdByEmployeeName: String(row.createdByEmployeeName),
+      createdByEmployeeName: String(row.employeeCreateItName),
       scheduledAt: new Date(row.scheduledAt),
     };
   }
@@ -365,14 +366,13 @@ export class Adapter {
   }
 
   updateEmployeeAdapter(data: FormGroup<INewEmployee>): any {
-    console.log('employee before update', data);
     return {
       fullName: data.value?.person?.name,
       nationalId: data.value?.person?.natId,
       birthDate: data.value?.person?.birthDate,
       phone: {
         number: data.value?.person?.phone,
-        code: '+966',
+        code: '966',
       },
       address: data.value?.person?.address,
       countryCode: data.value?.person?.countryCode,
@@ -389,7 +389,7 @@ export class Adapter {
         birthDate: data.value?.person?.birthDate,
         phone: {
           number: data.value?.person?.phone,
-          code: '+966',
+          code: '966',
         },
         address: data.value?.person?.address,
         countryCode: data.value?.person?.countryCode,
@@ -405,7 +405,7 @@ export class Adapter {
       fullName: data.name,
       email: data.email,
       address: data.address,
-      phone: data.phoneNumber,
+      phone: data.phone.number,
       role: data.role,
       birthDate: data.birthDate,
       countryCode: data.countryCode,

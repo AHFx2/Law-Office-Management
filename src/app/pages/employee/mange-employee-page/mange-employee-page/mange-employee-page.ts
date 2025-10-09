@@ -9,7 +9,7 @@ import {
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
-import { Sort, MatSortModule, MatSort } from '@angular/material/sort';
+import { MatSortModule, MatSort } from '@angular/material/sort';
 import {
   IemployeeName,
   IEmployeeRow,
@@ -65,8 +65,7 @@ export class MangeEmployeePage implements OnInit {
   session = inject(SessionManagement)
   deactive = signal((this.session.getSession() ? this.session.getSession()?.role == enRole.GeneralManager : false))
 
-  @ViewChild(MatPaginator) paginator: MatPaginator = {} as MatPaginator;
-  @ViewChild(MatSort) sort: MatSort = {} as MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
 
   displayedColumns: string[] = [
     'positon',
@@ -88,16 +87,15 @@ export class MangeEmployeePage implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.employeesDataSource.paginator = this.paginator;
     this.employeesDataSource.sort = this.sort;
   }
 
-  handelPage($event: PageEvent) {
-    this.loadData($event.pageIndex, $event.pageSize);
-  }
   loadData(pageIndex: number, pageSize: number) {
     this.employeeService.getAll(pageIndex, pageSize).subscribe((data) => {
       this.employeesDataSource.data = data;
+      setTimeout(() => {  
+        this.employeesDataSource.sort = this.sort;
+      })
     });
   }
   filter($event: any) {
@@ -105,7 +103,6 @@ export class MangeEmployeePage implements OnInit {
   }
   addEmployee() {
     this.dialogof.open(AddEmployeeComponent, {
-      // height: '500px',
       minWidth: '900px',
       data: { mode: enDialogMode.add },
     }).afterClosed().subscribe(() => {
@@ -115,7 +112,6 @@ export class MangeEmployeePage implements OnInit {
 
   update(employeeId: string) {
     this.dialogof.open(AddEmployeeComponent, {
-      height: '500px',
       minWidth: '900px',
       data: { mode: enDialogMode.update, employeeId: employeeId },
     }).afterClosed().subscribe(() => {

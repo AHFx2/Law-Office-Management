@@ -36,3 +36,8 @@
 .h-fit {
     height: fit-content;
 }
+
+app-section-button {
+    display: block;
+    width: fit-content;
+}

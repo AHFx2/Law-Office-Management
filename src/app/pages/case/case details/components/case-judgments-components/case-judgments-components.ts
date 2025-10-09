@@ -33,7 +33,7 @@ import { JudgmentSubTypeStyleDirective } from '../../../../../../shared/directiv
     MatMenuModule,
     MatSortModule,
     JudgmentStyleDirective,
-    JudgmentSubTypeStyleDirective
+    JudgmentSubTypeStyleDirective,
   ],
   templateUrl: './case-judgments-components.html',
   styleUrl: './case-judgments-components.css',
@@ -42,9 +42,7 @@ export class CaseJudgmentsComponents implements OnInit, AfterViewInit {
   handlePage($event: PageEvent) {
     throw new Error('Method not implemented.');
   }
-  filter() {
-    throw new Error('Method not implemented.');
-  }
+  
   displayedColumns: string[] = [
     'index',
     'number',
@@ -78,7 +76,7 @@ export class CaseJudgmentsComponents implements OnInit, AfterViewInit {
     this.loadJudjments();
   }
 
-   ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     // Connect paginator and sort to data source
     this.judgmentsDataSource.paginator = this.paginator;
     this.judgmentsDataSource.sort = this.sort;
@@ -89,6 +87,10 @@ export class CaseJudgmentsComponents implements OnInit, AfterViewInit {
       next: (res) => {
         this.judgments = res;
         this.judgmentsDataSource.data = this.judgments.items;
+
+        setTimeout(() => {
+          this.judgmentsDataSource.sort = this.sort;
+        });
       },
     });
   }
@@ -110,5 +112,10 @@ export class CaseJudgmentsComponents implements OnInit, AfterViewInit {
     this.judgmentService
       .download(this.caseId, element.id, element.file.filePath)
       .subscribe((blob) => this.helper.download(element.file.fileName, blob));
+  }
+
+  filter(event: Event): void {
+    const value = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.judgmentsDataSource.filter = value;
   }
 }

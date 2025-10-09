@@ -25,7 +25,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './judgments-list-page.css',
   imports: [
     MatPaginatorModule,
-    PageHeaderComponent,
     MatTableModule,
     DatePipe,
     MatSortModule,
@@ -33,14 +32,14 @@ import { RouterLink } from '@angular/router';
     JudgmentStyleDirective,
     JudgmentSubTypeStyleDirective,
     MatMenuModule,
-    RouterLink
+    RouterLink,
   ],
 })
-export class JudgmentsListPage implements AfterViewInit, OnInit {
+export class JudgmentsListPage implements OnInit {
   judgments: IJudgmentRow[] = [];
-  
+
   judgmentsList: IListDTO<IJudgmentRow> = {} as IListDTO<IJudgmentRow>;
-  
+
   displayedColumns: string[] = [
     'index',
     'number',
@@ -51,15 +50,15 @@ export class JudgmentsListPage implements AfterViewInit, OnInit {
     'createdDate',
     'download',
   ];
-  
+
   dataSource = new MatTableDataSource<IJudgmentRow>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   /**
    *
-  */
+   */
   constructor(
     public helper: ClsHelpers,
     private judgmentService: JudgmentService
@@ -68,18 +67,16 @@ export class JudgmentsListPage implements AfterViewInit, OnInit {
     this.judgmentService.getAll().subscribe((res) => {
       this.judgmentsList = res;
       this.dataSource.data = this.judgmentsList.items;
+      setTimeout(() => {  
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
     });
   }
   download(row: IJudgmentRow) {
-        this.judgmentService
-        .download(row.caseId, row.id, row.file.filePath)
-        .subscribe((blob) => this.helper.download(row.file.fileName, blob));
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.data = this.judgmentsList.items;
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.judgmentService
+      .download(row.caseId, row.id, row.file.filePath)
+      .subscribe((blob) => this.helper.download(row.file.fileName, blob));
   }
 
   applyFilter(event: Event) {
@@ -87,9 +84,5 @@ export class JudgmentsListPage implements AfterViewInit, OnInit {
       .trim()
       .toLowerCase();
     this.dataSource.filter = filterValue;
-  }
-
-  getDownloadUrl(row: IJudgmentRow): string {
-    return `/files/judgments/${row.number}.pdf`; // Adjust if filePath is available
   }
 }
