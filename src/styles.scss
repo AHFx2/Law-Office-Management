@@ -5,7 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: 0;
-  font-family: "Cairo", sans-serif;
+  font-family: "Cairo";
 }
 
 :root {
@@ -340,4 +340,13 @@ td {
   > button {
     font-size: 0.8rem;
   }
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.form-label {
+  font-size: 0.9rem;
 }

@@ -60,8 +60,6 @@ export class CaseService {
     pageNumber: number = 1,
     pageSize: number = 10
   ): Observable<IListDTO<ICaseRow>> {
-    console.log('the court id', courtId);
-    console.log('the year', year);
 
     return this.http
       .get<any>(

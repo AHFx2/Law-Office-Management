@@ -1,6 +1,6 @@
 <section class="section">
   <header>
-    <h3>معلومات القضية</h3>
+    <h3 >معلومات القضية</h3>
   </header>
 
   <section class="case-content d-myflex my-justi gap-5">
@@ -55,8 +55,8 @@
               <option value="ملغي">ملغي</option>
           </select>
           <button (click)="update(status)" class="btn bg-accent">تحديث</button>
-      </p>
-    </div>
+        </p>
+      </div>
   </section>
 
 </section>
@@ -86,19 +86,19 @@
 
       <!-- Name Column -->
       <ng-container [matColumnDef]="displayedColumns[1]">
-        <th mat-header-cell *matHeaderCellDef [mat-sort-header]="displayedColumns[1]">اسم العميل</th>
+        <th mat-header-cell *matHeaderCellDef>اسم العميل</th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
       <!-- National ID Column -->
       <ng-container [matColumnDef]="displayedColumns[2]">
-        <th mat-header-cell *matHeaderCellDef [mat-sort-header]="displayedColumns[2]">رقم الهوية</th>
+        <th mat-header-cell *matHeaderCellDef>رقم الهوية</th>
         <td mat-cell *matCellDef="let element"> {{element.natId}} </td>
       </ng-container>
 
       <!-- Phone Column -->
       <ng-container [matColumnDef]="displayedColumns[3]">
-        <th mat-header-cell *matHeaderCellDef [mat-sort-header]="displayedColumns[3]">رقم الهاتف</th>
+        <th mat-header-cell *matHeaderCellDef>رقم الهاتف</th>
         <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
       </ng-container>
 

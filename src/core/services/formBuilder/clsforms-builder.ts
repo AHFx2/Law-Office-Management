@@ -208,7 +208,7 @@ export class clsFormsBuilder {
         validators: [Validators.required, featureValidator],
       }),
       layerId: this.fb.control('', Validators.required),
-      tasks: this.fb.control('', Validators.required),
+      tasks: this.fb.control('', [Validators.required, Validators.minLength(10)]),
     });
   }
 }

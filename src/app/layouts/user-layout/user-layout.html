@@ -13,13 +13,13 @@
             <ul>
                 @for (item of navElements; track item.name) {
                 @if (hasRole(item)) {
-                <a [routerLink]="item.route" (isActiveChange)="routeChanged($event, item)" routerLinkActive="bg-main"
+                <a [routerLink]="item.route" (click)="routeChanged(item)" [class.bg-main]=" activeRout === item "
                     class="btn" [ngClass]="!IsnavigatorsTextVisable() ? ['justify-content-center', 'only-icon'] : []">
 
                     <i [class]=item.icon></i>
                     @if (IsnavigatorsTextVisable())
                     {
-                    <span>{{item.name}}</span>
+                    <span class="nav-text">{{item.name}}</span>
                     }
                 </a>
 

@@ -80,6 +80,7 @@ export class CaseContract implements OnInit, AfterViewInit {
       next: (res) => {
         this.contracts = res;
         this.contractsDataSource.data = this.contracts.items;
+        setTimeout(() => {this.contractsDataSource.sort = this.sort});
       },
     });
   }
@@ -120,10 +121,6 @@ export class CaseContract implements OnInit, AfterViewInit {
         month: 'numeric', // الشهر كاملاً (مثل: أكتوبر)
         day: 'numeric', // اليوم كرقم
       });
-    }
-
-    else return '-------'
-
-
+    } else return '-------';
   }
 }

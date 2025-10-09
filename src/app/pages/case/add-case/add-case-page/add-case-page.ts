@@ -22,6 +22,7 @@ import { clsFormsBuilder } from '../../../../../core/services/formBuilder/clsfor
 import { ToasterService } from '../../../../../core/services/toaster-service';
 import { MatMenuModule } from '@angular/material/menu';
 import { enErrorCodes } from '../../../../../shared/enums/errors';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-add-case-component',
@@ -33,6 +34,7 @@ import { enErrorCodes } from '../../../../../shared/enums/errors';
     ReactiveFormsModule,
     JsonPipe,
     MatMenuModule,
+    MatTooltipModule
   ],
   templateUrl: './add-case-page.html',
   styleUrl: './add-case-page.css',
@@ -62,12 +64,15 @@ export class AddCaseComponent implements OnInit {
 
   private handelCourtTypes() {
     this.courts = this.activatedRoute.snapshot.data['court'] as ICourt[];
+    this.addCaseForm.controls.case.controls.courtType.setValue(this.courts[0].courtTypeId);
   }
 
   private handelEmployeeNames() {
     this.employeeNames = this.activatedRoute.snapshot.data[
       'employeeNames'
     ] as IemployeeName[];
+    this.addCaseForm.controls.case.controls.assignedOfficer.setValue(this.employeeNames[0].id);
+
   }
 
   search(natId: string, invalid: boolean) {
